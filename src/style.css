@@ -1,0 +1,382 @@
+:root {
+  --ink: #1b1b2a;
+  --paper: #fffaf0;
+  --gold: #ffc531;
+  --go: #3cc46b;
+  --blue: #2c6fd1;
+  --font: ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  background: #1b2a4a;
+  font-family: var(--font);
+  color: var(--ink);
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+}
+
+#world {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+#ui {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  padding: max(16px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
+}
+
+#ui button,
+#ui .card {
+  pointer-events: auto;
+}
+
+button {
+  font: inherit;
+  font-weight: 800;
+  border: 4px solid var(--ink);
+  border-radius: 22px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 14px 30px;
+  font-size: 28px;
+  box-shadow: 0 6px 0 var(--ink);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+button:disabled {
+  opacity: 0.4;
+  transform: none;
+  box-shadow: 0 6px 0 var(--ink);
+}
+
+button.go {
+  background: var(--go);
+  color: white;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dim {
+  background: rgba(15, 22, 45, 0.55);
+}
+
+.topbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gears {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 18px 6px 8px;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.gears canvas {
+  width: 38px;
+  height: 38px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 900;
+  color: white;
+  -webkit-text-stroke: 3px var(--ink);
+  paint-order: stroke fill;
+  letter-spacing: 1px;
+  text-shadow: 0 6px 0 var(--ink);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 52px;
+  font-weight: 900;
+  color: white;
+  -webkit-text-stroke: 3px var(--ink);
+  paint-order: stroke fill;
+}
+
+.cards {
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.card {
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  border-radius: 28px;
+  box-shadow: 0 8px 0 var(--ink);
+  padding: 12px 10px 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card:active {
+  transform: translateY(5px);
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.card canvas {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+}
+
+.card .name {
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.card .world {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+.card .best {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.card.car canvas { background: #9ad7ff; }
+.card.boat canvas { background: #2aa7d6; }
+.card.plane canvas { background: #6fb6f0; }
+.card.rocket canvas { background: #120d33; }
+
+.hud {
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+}
+
+.hud .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pill {
+  background: rgba(255, 250, 240, 0.92);
+  border: 4px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 20px;
+  font-size: 30px;
+  font-weight: 900;
+  min-width: 140px;
+  text-align: center;
+}
+
+.timer {
+  font-size: 46px;
+  padding: 4px 30px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer.low {
+  background: #ffdf6b;
+}
+
+.boost-badge {
+  margin: 10px auto 0;
+  width: fit-content;
+  background: #ff8a1f;
+  color: white;
+  font-size: 24px;
+}
+
+.pause {
+  position: absolute;
+  left: max(20px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  font-size: 26px;
+  border-radius: 50%;
+}
+
+.panel {
+  margin: auto;
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  border-radius: 32px;
+  box-shadow: 0 10px 0 var(--ink);
+  padding: 24px 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-width: 480px;
+}
+
+.panel h2 {
+  margin: 0;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 30px;
+  font-weight: 800;
+  gap: 40px;
+}
+
+.stat b {
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat canvas {
+  width: 32px;
+  height: 32px;
+}
+
+.newbest {
+  background: var(--gold);
+  border: 4px solid var(--ink);
+  border-radius: 999px;
+  padding: 4px 20px;
+  font-size: 26px;
+  font-weight: 900;
+  animation: wiggle 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+  from { transform: rotate(-4deg) scale(1); }
+  to { transform: rotate(4deg) scale(1.08); }
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.upgrade {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.upgrade small {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.pips {
+  display: flex;
+  gap: 8px;
+}
+
+.pip {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 4px solid var(--ink);
+  background: white;
+}
+
+.pip.on {
+  background: var(--go);
+}
+
+.upgrade button {
+  min-width: 170px;
+  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.upgrade button canvas {
+  width: 28px;
+  height: 28px;
+}
+
+#rotate {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #1b2a4a;
+  color: white;
+  font-size: 32px;
+  font-weight: 900;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+@media (orientation: portrait) {
+  #rotate {
+    display: flex;
+  }
+}
+
+@media (max-height: 600px) {
+  h1 { font-size: 44px; }
+  .card .name { font-size: 26px; }
+  .panel { padding: 16px 28px 20px; gap: 8px; }
+  .stat, .upgrade { font-size: 24px; }
+}

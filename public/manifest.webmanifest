@@ -1,0 +1,14 @@
+{
+  "name": "Vehicle Ride",
+  "short_name": "Vehicle Ride",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1b2a4a",
+  "theme_color": "#1b2a4a",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
